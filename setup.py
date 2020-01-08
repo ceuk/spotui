@@ -5,9 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="spotui",
-    version="0.1.0",
+    version="0.1.1",
     author="ceuk",
     description="Spotify TUI",
+    dependency_links=[
+        "git+https://git@github.com/plamere/spotipy.git@master#egg=spotipy-2.4.4"
+    ],
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="spotify spotifytui",
@@ -24,7 +27,6 @@ setuptools.setup(
     ],
     python_requires=">=3.4",
     install_requires=[
-        "PySocks==1.7.1",
         "spotipy==2.4.4",
         "windows-curses>=2.0;platform_system=='Windows'",
     ],
