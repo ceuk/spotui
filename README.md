@@ -1,6 +1,8 @@
 # SpoTUI
 Yet another Spotify TUI
 
+![screenshot](https://i.imgur.com/7syOTKb.gif)
+
 Getting Started
 -----------
 
