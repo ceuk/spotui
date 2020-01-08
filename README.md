@@ -13,7 +13,7 @@ Register a developer application at: [https://developer.spotify.com/dashboard/lo
 Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or create one manually with the following:
 
 ```
-   [spotify_api]
+  [spotify_api]
   user_name = *Your spotify username*
   client_id = *Your application client ID*
   client_secret = *Your application secret*
