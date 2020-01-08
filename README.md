@@ -16,7 +16,7 @@ Then install spotipy with: ```pip install git+https://github.com/plamere/spotipy
 
 (if anyone knows a way to add this version of Spotipy as a dependency let me know)
 
-Register a developer application at: [https://developer.spotify.com/dashboard/login]( https://developer.spotify.com/dashboard/login). Use something like 'http://localhost:8888/callback' for the redirect URI (it doesn't matter what you use really).
+Register a developer application at: [https://developer.spotify.com/dashboard/login]( https://developer.spotify.com/dashboard/login). Use something like 'http://localhost:8888/auth' for the redirect URI (it doesn't matter what you use really).
 
 Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or create one manually with the following:
 
