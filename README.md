@@ -1,5 +1,9 @@
 # SpoTUI
-Yet another Spotify TUI
+![Version Badge](https://img.shields.io/pypi/v/spotui)
+![License Badge](https://img.shields.io/github/license/ceuk/spotui)
+![Code size Badge](https://img.shields.io/github/languages/code-size/ceuk/spotui)
+
+Spotify in the terminal. 
 
 ![screenshot](https://i.imgur.com/7syOTKb.gif)
 
