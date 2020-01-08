@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="spotui",
-    version="0.1.2",
+    version="0.1.3",
     author="ceuk",
     description="Spotify TUI",
     dependency_links=[
@@ -27,8 +27,7 @@ setuptools.setup(
     ],
     python_requires=">=3.4",
     install_requires=[
-        "spotipy==2.4.4",
-        "windows-curses>=2.0;platform_system=='Windows'",
+        "spotipy==2.4.4"
     ],
     entry_points={"console_scripts": ["spotui=spotui.__main__:main"]},
 )
