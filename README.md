@@ -22,7 +22,7 @@ Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or c
 
 Once you're done start the app with `spotui`, log in via your browser and copy the URL of the broken web page you're taken to. *(This ugly authentication process is part of the underlying Spotipy library I use so don't blame me :stuck_out_tongue_winking_eye:)*
 
-This app acts like a kind of remote control for Spotify. The best way to use it is in conjunction with [Spotifyd](https://github.com/Spotifyd/spotifyd) which means you won't need to actually have Spotify open. Alternatively, you can just open Spotify on your computer, phone etc. (press `d to pick the device to play on).
+This app acts like a kind of remote control for Spotify. The best way to use it is in conjunction with [Spotifyd](https://github.com/Spotifyd/spotifyd) which means you won't need to actually have Spotify open. Alternatively, you can just open Spotify on your computer, phone etc. (press `d` to pick the device to play on).
 
 
 
