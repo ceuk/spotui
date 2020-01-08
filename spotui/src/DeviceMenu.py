@@ -27,7 +27,7 @@ class DeviceMenu(Component):
         self.endy = self.starty + box_height
         self.component = Menu(
             self.stdscr,
-            list(map(self.__map_devices, self.items)),
+            list(map(self.__map_devices, self.items)) if self.items and len(self.items) > 0 else [],
             self.starty,
             self.startx,
             self.endy,
