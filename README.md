@@ -75,7 +75,7 @@ FAQ
 ----
 
 * **Why did you make this?** To learn Python. This is literally the first thing I've ever made in Python
-* **Why should I use this instead of [Rigellute's version](https://github.com/Rigellute/spotify-tui)?** You like the way mine looks bettter? Rigellute's version is great, and it's written in Rust which automatically makes it cool :sunglasses: 
+* **Why should I use this instead of [Rigellute's version](https://github.com/Rigellute/spotify-tui)?** You like the way mine looks better? Rigellute's version is great, and it's written in Rust which automatically makes it cool :sunglasses: 
 * **What do I do if something breaks?** [Raise an issue](https://github.com/ceuk/spotui/issues/new) or submit a PR to fix my crappy code :pray:
 
 Dependencies
