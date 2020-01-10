@@ -37,8 +37,8 @@ class TracksMenu(Component):
             self.endy,
             self.endx,
             self.component and self.component.active,
-            self.component.selected
-            if self.component and self.component.selected else 0,
+            self.component.selected if self.component
+            and self.component.selected < len(self.items) else 0,
             self.component.scroll_start
             if self.component and self.component.scroll_start else 0,
         )
