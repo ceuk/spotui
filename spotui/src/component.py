@@ -63,3 +63,6 @@ class Component:
         elif self.interactive:
             self.create_border(5 if self.component.active else 4)
         self.component.render(status)
+
+    def receive_input(self, key):
+        pass

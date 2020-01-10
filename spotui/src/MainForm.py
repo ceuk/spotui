@@ -19,7 +19,6 @@ class MainForm:
         self.pause_updates = False
         self.device_id = None
         self.tracklist_uri = None
-        stdscr.bkgd(" ", curses.color_pair(1))
         self.status = self.api.get_playing()
 
         self.app_name = "SpoTUI"
@@ -52,6 +51,11 @@ class MainForm:
             PlaylistMenu(stdscr, self.api, self.change_tracklist),
             NowPlaying(stdscr),
         ]
+        self.search_component = SearchInput(self.stdscr, self.api,
+                                            self.search_tracks)
+        self.device_menu_component = DeviceMenu(self.stdscr, self.api,
+                                                self.select_device,
+                                                self.hide_popup)
 
         # Active component
         self.active_component = 0
@@ -65,7 +69,8 @@ class MainForm:
 
         # Set initial device ID
         devices = self.api.get_devices()
-        self.device_id = devices[0]["id"] if devices and len(devices) > 0 else None
+        self.device_id = devices[0]["id"] if devices and len(
+            devices) > 0 else None
 
         # Initial render
         self.render()
@@ -78,19 +83,21 @@ class MainForm:
         # Start the main event loop (used for responding to key presses and keeping the main process running)
         while 1:
             try:
-                # capture and handle key press
-                key = self.stdscr.getch()
-                if key in self.events.keys():
-                    # run the event handler for the key
-                    self.events[key]()
-                elif self.popup:
-                    # or pass it to the active popup
-                    self.popup.receive_input(key)
-                else:
-                    # or pass the input to the active component
-                    self.components[self.active_component].receive_input(key)
-                # re-render
-                self.render()
+                if not self.pause_updates:
+                    # capture and handle key press
+                    key = self.stdscr.getch()
+                    if key in self.events.keys():
+                        # run the event handler for the key
+                        self.events[key]()
+                    elif self.popup:
+                        # or pass it to the active popup
+                        self.popup.receive_input(key)
+                    else:
+                        # or pass the input to the active component
+                        self.components[self.active_component].receive_input(
+                            key)
+                    # re-render
+                    self.render()
             except KeyboardInterrupt:
                 sys.exit(0)
 
@@ -156,21 +163,23 @@ class MainForm:
             self.api.start_playback(self.device_id)
             self.status["is_playing"] = True
 
+    @debounce(0.5)
     def previous_track(self):
         if self.device_id and self.status and self.status["is_playing"]:
             self.api.previous_track(self.device_id)
 
+    @debounce(0.5)
     def next_track(self):
         if self.device_id and self.status and self.status["is_playing"]:
             self.api.next_track(self.device_id)
 
-    @debounce(2)
+    @debounce(1.5)
     def toggle_shuffle(self):
         status = self.api.get_playing()
         if status:
             self.api.shuffle(not self.status["shuffle_state"])
 
-    @debounce(2)
+    @debounce(1.5)
     def cycle_repeat(self):
         status = self.api.get_playing()
         if status:
@@ -199,24 +208,26 @@ class MainForm:
         if query and len(query) > 1:
             results = self.api.search_tracks(query)
             self.change_tracklist(results, "Searching: " + query)
+            self.render()
 
     def activate_tracklist(self):
         self.components[self.active_component].deactivate()
         self.active_component = 0
         self.components[self.active_component].activate()
 
+    @debounce(2)
     def show_device_menu(self):
         self.components[self.active_component].deactivate()
-        self.popup = DeviceMenu(self.stdscr, self.api, self.select_device,
-                                self.hide_popup)
+        self.popup = self.device_menu_component
         self.popup.activate()
         self.render()
 
     def show_search_bar(self):
+        if self.popup:
+            return
+        self.popup = self.search_component
         self.pause_updates = True
         self.components[self.active_component].deactivate()
-        self.popup = SearchInput(self.stdscr, self.api, self.search_tracks,
-                                 self.hide_popup)
         self.popup.activate()
         self.render()
 
@@ -229,6 +240,7 @@ class MainForm:
             self.popup.deactivate()
         self.popup = None
         self.components[self.active_component].activate()
+        self.stdscr.clear()
         self.render()
 
     def handle_resize(self):

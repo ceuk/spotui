@@ -5,11 +5,10 @@ from spotui.src.component import Component
 
 
 class SearchInput(Component):
-    def __init__(self, stdscr, api, handle_search, close):
+    def __init__(self, stdscr, api, handle_search):
         self.stdscr = stdscr
         self.api = api
         self.handle_search = handle_search
-        self.close = close
         self.active = True
         self.popup = True
         self.title = "Search"
@@ -38,9 +37,3 @@ class SearchInput(Component):
 
     def deactivate(self):
         self.component.active = False
-
-    def receive_input(self, key):
-        if key == curses.KEY_ENTER or key in [10, 13]:
-            self.close()
-        else:
-            self.component.receive_input(key)

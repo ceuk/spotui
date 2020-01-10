@@ -22,21 +22,19 @@ class Input:
         self.active = True
         scry, scrx = self.stdscr.getmaxyx()
         self.available_space = self.endx - self.startx
-        self.win = None
 
     def render(self, status=None):
+        win = curses.newwin(2, self.available_space - 2, self.starty,
+                            self.startx)
+        box = textpad.Textbox(win, insert_mode=True)
         curses.echo()
         curses.nocbreak()
-        if self.win:
-            del self.win
-        self.win = curses.newwin(2, self.available_space - 2, self.starty,
-                                 self.startx)
-        self.box = textpad.Textbox(self.win, insert_mode=True)
         self.stdscr.refresh()
-        self.contents = self.box.edit(self.__enter_is_terminate)
-        del self.win
-        self.win = None
-        self.handle_submit(self.contents)
+        contents = box.edit(self.__enter_is_terminate)
+        win.clrtoeol()
+        del box
+        del win
+        self.handle_submit(contents)
         curses.noecho()
         curses.cbreak()
 
@@ -45,6 +43,7 @@ class Input:
 
     def __enter_is_terminate(self, x):
         if x == 10 or x == 13 or x == curses.KEY_ENTER:
+            self.stdscr.clear()
             return 7
 
     def __printString(self, y, x, text, color):
