@@ -27,7 +27,8 @@ class DeviceMenu(Component):
         self.endy = self.starty + box_height
         self.component = Menu(
             self.stdscr,
-            list(map(self.__map_devices, self.items)) if self.items and len(self.items) > 0 else [],
+            list(map(self.__map_devices, self.items))
+            if self.items and len(self.items) > 0 else [],
             self.starty,
             self.startx,
             self.endy,
@@ -39,13 +40,15 @@ class DeviceMenu(Component):
         item["text"] = truncate(item["text"], available_space)
 
         def handler():
-            self.select_device(item["id"])
+            if item and "id" in item:
+                self.select_device(item["id"])
 
         item["handler"] = handler
         return item
 
     def receive_input(self, key):
-        if key == curses.KEY_ENTER or key in [10, 13]:
+        if ((key == curses.KEY_ENTER or key in [10, 13]) and self.items
+                and len(self.items) > 0):
             self.items[self.component.selected]["handler"]()
             self.close()
         else:
