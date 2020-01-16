@@ -27,7 +27,7 @@ class TracksMenu(Component):
 
     def update_tracks(self, tracks, title):
         self.tracks = tracks
-        self.items = list(map(self.__map_tracks, tracks))
+        self.items = list(map(self.__map_tracks, tracks)) if tracks else []
         self.title = title
         self.component = Menu(
             self.stdscr,
@@ -51,9 +51,9 @@ class TracksMenu(Component):
             self.restart()
 
     def receive_input(self, key):
-        if key == curses.KEY_ENTER or key in [10, 13]:
-            if len(self.items) > 0:
-                self.items[self.component.selected]["handler"]()
+        if ((key == curses.KEY_ENTER or key in [10, 13]) and self.items
+                and len(self.items) > 0):
+            self.items[self.component.selected]["handler"]()
         else:
             self.component.receive_input(key)
 
