@@ -5,12 +5,9 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="spotui",
-    version="0.1.7",
+    version="0.1.8",
     author="ceuk",
     description="Spotify TUI",
-    dependency_links=[
-        "git+https://git@github.com/plamere/spotipy.git@master#egg=spotipy-2.4.4"
-    ],
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="spotify spotifytui",
@@ -26,6 +23,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
     ],
     python_requires=">=3.4",
-    install_requires=["spotipy==2.4.4"],
+    install_requires=["spotipy==2.7.1"],
     entry_points={"console_scripts": ["spotui=spotui.__main__:main"]},
 )
