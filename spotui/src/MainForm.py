@@ -219,6 +219,7 @@ class MainForm:
     def show_device_menu(self):
         self.components[self.active_component].deactivate()
         self.popup = self.device_menu_component
+        self.popup.restart()
         self.popup.activate()
         self.render()
 

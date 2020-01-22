@@ -18,6 +18,7 @@ class DeviceMenu(Component):
         self.restart()
 
     def restart(self):
+        self.items = self.api.get_devices()
         scry, scrx = self.stdscr.getmaxyx()
         box_height = round(scry / 2)
         box_width = round(scrx / 2.5)
