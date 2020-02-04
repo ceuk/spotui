@@ -2,6 +2,15 @@ import curses
 from spotui.src.util import ms_to_hms, truncate
 from spotui.src.menu import Menu
 from spotui.src.component import Component
+from spotui.src.config import get_config
+
+config = get_config()
+use_nerd_fonts = config.get("other", "use_nerd_fonts") == "yes"
+play_icon = "契" if use_nerd_fonts else "▶"
+pause_icon = " " if use_nerd_fonts else "⏸ "
+shuffle_icon = "咽" if use_nerd_fonts else "🔀"
+repeat_track_icon = "綾" if use_nerd_fonts else "🔁(t)"
+repeat_icon = "凌" if use_nerd_fonts else "🔁"
 
 
 class NowPlaying(Component):
@@ -58,13 +67,13 @@ class NowPlayingComponent:
                                      and self.track_length > 0 else 0)
         shuffle = status["shuffle_state"] if status else False
         repeat = status["repeat_state"] if status else False
-        shuffle_symbol = "咽" if shuffle else ""
+        shuffle_symbol = shuffle_icon if shuffle else ""
         repeat_symbol = ""
         if repeat == "track":
-            repeat_symbol = "綾"
+            repeat_symbol = repeat_track_icon
         if repeat == "context":
-            repeat_symbol = "凌"
-        status_symbol = "契" if self.playing else " "
+            repeat_symbol = repeat_icon
+        status_symbol = play_icon if self.playing else pause_icon
         timestamp = ms_to_hms(self.progress) + "/" + ms_to_hms(
             self.track_length)
         max_length = self.endx - self.startx - (len(timestamp) + 3)

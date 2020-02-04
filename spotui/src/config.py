@@ -39,6 +39,7 @@ def _create_default_config(configparser, filename):
                      "http://localhost:8888/auth")
 
     configparser.add_section("other")
+    configparser.set("other", "use_nerd_fonts", "yes")
     configparser.set("other", "config_version", "1")
 
     configparser.write(open(filename, "w"))
