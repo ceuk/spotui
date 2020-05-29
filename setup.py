@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="spotui",
-    version="0.1.10",
+    version="0.1.11",
     author="ceuk",
     description="Spotify TUI",
     long_description=long_description,

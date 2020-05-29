@@ -1,3 +1,4 @@
+import os
 import spotipy
 import spotipy.util as util
 from spotui.src.config import get_config
@@ -11,6 +12,9 @@ class SpotifyApi:
 
     def auth(self):
         config = get_config()
+        user_config_dir = os.path.expanduser("~")
+        cache_location = os.path.join(
+            user_config_dir, '.config/spotui/SpoTUI_token.cache')
         self.user_name = config.get("spotify_api", "user_name")
         client_id = config.get("spotify_api", "client_id")
         client_secret = config.get("spotify_api", "client_secret")
@@ -22,6 +26,7 @@ class SpotifyApi:
             client_id=client_id,
             client_secret=client_secret,
             redirect_uri=redirect_uri,
+            cache_path=cache_location
         )
 
         if self.token:
