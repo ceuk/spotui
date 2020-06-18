@@ -67,7 +67,11 @@ class MainForm:
         self.popup = None
 
         # Set initial tracklist
-        self.change_tracklist(self.api.get_top_tracks(), "Top Tracks")
+        if self.status["context"] and self.status["context"]["uri"]:
+            self.change_tracklist(
+                self.api.get_playlist_tracks(self.status["context"]["uri"]), "Previous Session")
+        else:
+            self.change_tracklist(self.api.get_top_tracks(), "Top Tracks")
 
         # Set initial device ID
         devices = self.api.get_devices()
