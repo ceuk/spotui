@@ -67,6 +67,16 @@ Controls
 `r` Toggle repeat
 
 
+Roadmap
+-------
+
+ * Persist certain settings (selected device, current playlist etc)
+ * Better unexpected stderr/stdout output handling
+   1.  Suppress exceptions
+   2.  Show exceptions in an elegant way
+ * Custom themes
+
+
 FAQ
 ----
 
