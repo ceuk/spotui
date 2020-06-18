@@ -1,4 +1,6 @@
-import sys, time, curses
+import sys
+import time
+import curses
 from threading import Thread
 from spotui.src.util import debounce
 from spotui.src.spotifyApi import SpotifyApi
@@ -177,7 +179,7 @@ class MainForm:
     def toggle_shuffle(self):
         status = self.api.get_playing()
         if status:
-            self.api.shuffle(not self.status["shuffle_state"])
+            self.api.shuffle(not bool(self.status["shuffle_state"]))
 
     @debounce(1.5)
     def cycle_repeat(self):
