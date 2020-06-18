@@ -75,8 +75,11 @@ class MainForm:
 
         # Set initial device ID
         devices = self.api.get_devices()
-        self.device_id = devices[0]["id"] if devices and len(
-            devices) > 0 else None
+        if "device" in self.status and self.status["device"]["is_active"]:
+            self.device_id = self.status["device"]["id"]
+        else:
+            self.device_id = devices[0]["id"] if devices and len(
+                devices) > 0 else None
 
         # Initial render
         self.render()
