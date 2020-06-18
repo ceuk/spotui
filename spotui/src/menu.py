@@ -53,21 +53,24 @@ class Menu:
     def receive_input(self, key):
         if (key == curses.KEY_UP or key == ord("k")) and self.selected > 0:
             self.select(self.selected - 1)
-        if (key == curses.KEY_DOWN
-                or key == ord("j")) and self.selected < len(self.items) - 1:
+        if (key == curses.KEY_DOWN or key == ord("j")) and self.selected < len(self.items) - 1:
             self.select(self.selected + 1)
+        if key == ord("g") and self.selected > 0:
+            self.select(0)
+        if key == ord("G") and self.selected < len(self.items) - 1:
+            self.select(len(self.items) - 1)
         if self.selected < self.scroll_start:
-            self.scroll_up()
+            self.scroll_up(self.scroll_start - self.selected)
         if self.selected > self.scroll_end:
-            self.scroll_down()
+            self.scroll_down(self.selected - self.scroll_end)
 
-    def scroll_up(self):
-        self.scroll_start -= 1
-        self.scroll_end -= 1
+    def scroll_up(self, amount):
+        self.scroll_start -= amount
+        self.scroll_end -= amount
 
-    def scroll_down(self):
-        self.scroll_start += 1
-        self.scroll_end += 1
+    def scroll_down(self, amount):
+        self.scroll_start += amount
+        self.scroll_end += amount
 
     def __printString(self, y, x, text, color):
         if color:

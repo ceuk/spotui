@@ -42,6 +42,10 @@ Controls
 
 `j`/`↓` Down
 
+`g` Scroll to top
+
+`G` Scroll to bottom
+
 `Enter` Select
 
 `/` Search 
