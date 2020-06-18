@@ -156,6 +156,7 @@ class SpotifyApi:
             playlists = self.client.current_user_playlists()
             return list(map(self.__map_playlists, playlists["items"]))
         except Exception as e:
+            return []
             pass
 
     def get_playlist_tracks(self, playlist_id):
