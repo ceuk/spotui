@@ -67,7 +67,7 @@ class MainForm:
         self.popup = None
 
         # Set initial tracklist
-        if self.status and self.status["context"] and self.status["context"]["uri"]:
+        if self.status and 'context' in self.status and self.status["context"]["uri"]:
             self.change_tracklist(
                 self.api.get_playlist_tracks(self.status["context"]["uri"]), "Previous Session")
         else:
@@ -75,7 +75,7 @@ class MainForm:
 
         # Set initial device ID
         devices = self.api.get_devices()
-        if self.status and self.status["device"] and self.status["device"]["is_active"]:
+        if self.status and 'device' in self.status and self.status["device"]["is_active"]:
             self.device_id = self.status["device"]["id"]
         else:
             self.device_id = devices[0]["id"] if devices and len(
