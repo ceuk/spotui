@@ -3,6 +3,7 @@ import time
 import curses
 from threading import Thread
 from spotui.src.util import debounce
+from spotui.src.Logging import logging
 from spotui.src.spotifyApi import SpotifyApi
 from spotui.src.TracksMenu import TracksMenu
 from spotui.src.LibraryMenu import LibraryMenu

@@ -2,6 +2,7 @@ import os
 import spotipy
 import spotipy.util as util
 from spotui.src.config import get_config
+from spotui.src.Logging import logging
 
 
 class SpotifyApi:
@@ -32,7 +33,7 @@ class SpotifyApi:
         if self.token:
             self.client = spotipy.Spotify(auth=self.token)
         else:
-            print("Can't get token for", self.user_name)
+            logging.warning("Can't get token for", self.user_name)
 
     def get_playing(self):
         try:
