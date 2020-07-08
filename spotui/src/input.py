@@ -1,4 +1,6 @@
-import curses, time, locale
+import curses
+import time
+import locale
 from curses import textpad
 
 locale.setlocale(locale.LC_ALL, "")
@@ -32,7 +34,6 @@ class Input:
         self.stdscr.refresh()
         contents = box.edit(self.__enter_is_terminate)
         win.clrtoeol()
-        del box
         del win
         self.handle_submit(contents)
         curses.noecho()
