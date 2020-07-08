@@ -72,11 +72,13 @@ class TracksMenu(Component):
         )
 
         def handler():
-            self.play_track(track["uri"])
+            self.play_track(track)
 
         return {
             "text": track_name + " " + artist_name,
             "handler": handler,
+            "type": track['type'],
+            "id": track["id"],
             "highlight": highlight,
         }
 

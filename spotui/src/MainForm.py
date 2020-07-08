@@ -55,7 +55,7 @@ class MainForm:
             NowPlaying(stdscr),
         ]
         self.search_component = SearchInput(self.stdscr, self.api,
-                                            self.search_tracks)
+                                            self.search)
         self.device_menu_component = DeviceMenu(self.stdscr, self.api,
                                                 self.select_device,
                                                 self.hide_popup)
@@ -68,7 +68,7 @@ class MainForm:
         self.popup = None
 
         # Set initial tracklist
-        if self.status and 'context' in self.status and self.status["context"]["uri"]:
+        if self.status and 'context' in self.status and type(self.status["context"]) is dict and 'uri' in self.status["context"]:
             self.change_tracklist(
                 self.api.get_playlist_tracks(self.status["context"]["uri"]), "Previous Session")
         else:
@@ -150,16 +150,24 @@ class MainForm:
             self.select_next_component()
 
     def play_track(self, track):
+        if track['type'] == 'playlist':
+            self.change_tracklist(self.api.get_playlist_tracks(
+                track['id'] if track['id'] else track['uri']), track['name'], track['uri'])
+            return
+        if track['type'] == 'show':
+            self.change_tracklist(self.api.show_episodes(
+                track['id']), track['name'], track['uri'])
+            return
         if self.device_id:
             if self.tracklist_uri:
                 self.api.start_playback(self.device_id, None,
-                                        self.tracklist_uri, {"uri": track})
+                                        self.tracklist_uri, {"uri": track["uri"]})
             else:
                 self.api.start_playback(
                     self.device_id,
                     list(map(self.__map_tracklist, self.components[0].tracks)),
                     None,
-                    {"uri": track},
+                    {"uri": track["uri"]},
                 )
 
     @debounce(0.5)
@@ -212,11 +220,11 @@ class MainForm:
             progress = self.status["progress_ms"]
             self.api.seek_track(self.device_id, progress + 10000)
 
-    def search_tracks(self, query):
+    def search(self, query):
         self.hide_popup()
         query = query.strip()
         if query and len(query) > 1:
-            results = self.api.search_tracks(query)
+            results = self.api.search(query)
             self.change_tracklist(results, "Searching: " + query)
             self.render()
 
@@ -236,8 +244,8 @@ class MainForm:
     def show_search_bar(self):
         if self.popup:
             return
-        self.popup = self.search_component
         self.pause_updates = True
+        self.popup = self.search_component
         self.components[self.active_component].deactivate()
         self.popup.activate()
         self.render()
@@ -246,11 +254,11 @@ class MainForm:
         self.device_id = device_id
 
     def hide_popup(self):
-        self.pause_updates = False
         if self.popup:
             self.popup.deactivate()
         self.popup = None
         self.components[self.active_component].activate()
+        self.pause_updates = False
         self.stdscr.clear()
         self.render()
 

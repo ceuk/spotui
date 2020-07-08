@@ -45,15 +45,15 @@ class SpotifyApi:
         except Exception as e:
             pass
 
-    def search_tracks(self, query):
+    def search(self, query):
         try:
             self.auth()
             if not self.token:
                 return False
-            results = self.client.search(query, 20)
-            tracks = results["tracks"]
-            items = tracks["items"]
-            return list(map(self.__map_tracks, items))
+            classes = ['track', 'show', 'playlist']
+            items = [self.__search_all(c, query) for c in classes]
+            flat_items = [item for sublist in items for item in sublist]
+            return list(map(self.__map_tracks, flat_items))
         except Exception as e:
             pass
 
@@ -135,6 +135,17 @@ class SpotifyApi:
         except Exception as e:
             pass
 
+    def show_episodes(self, id):
+        try:
+            self.auth()
+            if not self.token:
+                return []
+            tracks = self.client.show_episodes(id)
+            items = tracks["items"]
+            return list(map(self.__map_tracks, items))
+        except Exception as e:
+            pass
+
     def get_liked_tracks(self):
         try:
             self.auth()
@@ -205,11 +216,25 @@ class SpotifyApi:
         except Exception as e:
             pass
 
+    def __search_all(self, className, query):
+        plural = className + 's'
+        tracks = self.__extract_results(self.client.search(
+            query, 50, 0, className), plural)
+        return tracks
+
+    def __extract_results(self, results, key):
+        tracks = results[key]
+        items = tracks['items']
+        return items
+
     def __map_tracks(self, item):
         track = item["track"] if "track" in item else item
         return {
-            "name": track["name"],
-            "artist": track["artists"][0]["name"],
+            "name": '(' + track['type'] + ') ' + track["name"] if track['type'] != 'track' else track['name'],
+            "artist": track["artists"][0]["name"] if track['type'] == 'track' else track['publisher'] if track['type'] == 'show' else ' ',
+            # "artist": 'james',
+            "type": track['type'],
+            "id": track["id"] if track['id'] else False,
             "uri": track["uri"],
         }
 
