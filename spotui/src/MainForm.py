@@ -165,7 +165,8 @@ class MainForm:
             else:
                 self.api.start_playback(
                     self.device_id,
-                    list(map(self.__map_tracklist, self.components[0].tracks)),
+                    list(map(self.__map_tracklist, filter(self.__filter_tracklist,
+                                                          self.components[0].tracks))),
                     None,
                     {"uri": track["uri"]},
                 )
@@ -273,6 +274,9 @@ class MainForm:
             self.hide_popup()
         else:
             sys.exit(0)
+
+    def __filter_tracklist(self, track):
+        return track["type"] == 'track'
 
     def __map_tracklist(self, track):
         return track["uri"]
