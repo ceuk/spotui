@@ -17,11 +17,14 @@ Register a developer application at: [https://developer.spotify.com/dashboard/lo
 Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or create one manually with the following:
 
 ```
-  [spotify_api]
-  user_name = *Your spotify username*
-  client_id = *Your application client ID*
-  client_secret = *Your application secret*
-  redirect_uri = http://localhost:8888/callback
+[spotify_api]
+user_name = *Your spotify username*
+client_id = *Your application client ID*
+client_secret = *Your application secret*
+
+[other]
+use_nerd_fonts = yes
+config_version = 1 redirect_uri = http://localhost:8888/callback
 ```
 
 Once you're done start the app with `spotui`, log in via your browser and copy the URL of the broken web page you're taken to. *(This ugly authentication process is part of the underlying Spotipy library I use so don't blame me :stuck_out_tongue_winking_eye:)*
