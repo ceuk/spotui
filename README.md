@@ -12,7 +12,7 @@ Getting Started
 
 Install with ```pip install spotui```
 
-Register a developer application at: [https://developer.spotify.com/dashboard/login]( https://developer.spotify.com/dashboard/login). Once you create the application you'll need to edit it to add a Redirect URI. Use something like 'http://localhost:8888/auth' (it doesn't matter what you use really as long as it matches what's in your config file).
+Register a developer application at: [https://developer.spotify.com/dashboard/login]( https://developer.spotify.com/dashboard/login). Once you create the application you'll need to edit it to add a Redirect URI. Use something like 'http://localhost:8888/callback' (it doesn't matter what you use really as long as it matches what's in your config file).
 
 Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or create one manually with the following:
 
@@ -21,10 +21,11 @@ Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or c
 user_name = *Your spotify username*
 client_id = *Your application client ID*
 client_secret = *Your application secret*
+redirect_uri = http://localhost:8888/callback
 
 [other]
 use_nerd_fonts = yes
-config_version = 1 redirect_uri = http://localhost:8888/callback
+config_version = 1 
 ```
 
 Once you're done start the app with `spotui`, log in via your browser and copy the URL of the broken web page you're taken to. *(This ugly authentication process is part of the underlying Spotipy library I use so don't blame me :stuck_out_tongue_winking_eye:)*
