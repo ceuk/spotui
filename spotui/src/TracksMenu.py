@@ -84,6 +84,7 @@ class TracksMenu(Component):
 
     def __pad_track_text(self, text, max_word_length):
         spaces_needed = max_word_length - len(text)
-        for i in range(0, spaces_needed + 1):
-            text += " "
+        if spaces_needed > 0:
+            for i in range(0, spaces_needed + 1):
+                text += " "
         return text
