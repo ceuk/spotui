@@ -2,7 +2,7 @@ import time
 
 
 def truncate(text, max_length):
-    return (text[:max_length - 2] + "..") if len(text) > max_length else text
+    return (text[:max_length - 3] + "..") if len(text) > max_length else text
 
 
 def ms_to_hms(ms):
