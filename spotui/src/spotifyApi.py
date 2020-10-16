@@ -128,9 +128,14 @@ class SpotifyApi:
                 return []
             tracks = self.client.current_user_recently_played()
             items = tracks["items"]
+            # set used to identify unique tracks, prevent duplication of results
+            track_uris = set()
             while tracks["next"]:
                 tracks = self.client.next(tracks)
                 items += tracks["items"]
+                # remove all non-unique track-items from recently played list
+                items = [item for item in items if item["track"]["uri"] not in track_uris \
+                and (track_uris.add(item["track"]["uri"]) or True)]
             return list(map(self.__map_tracks, items))
         except Exception as e:
             pass
