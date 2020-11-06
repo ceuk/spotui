@@ -12,6 +12,8 @@ Getting Started
 
 Install with ```pip install spotui```
 
+**Please Note:** SpoTUI will not work with free Spotify accounts.
+
 Register a developer application at: [https://developer.spotify.com/dashboard/login]( https://developer.spotify.com/dashboard/login). Once you create the application you'll need to edit it to add a Redirect URI. Use something like 'http://localhost:8888/callback' (it doesn't matter what you use really as long as it matches what's in your config file).
 
 Run `spotui` to generate a sample config file at ~/.config/spotui/.spotuirc or create one manually with the following:
