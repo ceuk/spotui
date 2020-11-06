@@ -77,22 +77,13 @@ Controls
 `r` Toggle repeat
 
 
-Roadmap
--------
-
- * Persist certain settings (selected device, current playlist etc)
- * Better unexpected stderr/stdout output handling
-   1.  Suppress exceptions
-   2.  Show exceptions in an elegant way
- * Custom themes
-
-
 FAQ
 ----
 
-* **Why did you make this?** To learn Python. This is literally the first thing I've ever made in Python
-* **Why should I use this instead of [Rigellute's version](https://github.com/Rigellute/spotify-tui)?** You like the way mine looks better? Rigellute's version is great, and it's written in Rust which automatically makes it cool :sunglasses: 
 * **What do I do if something breaks?** [Raise an issue](https://github.com/ceuk/spotui/issues/new) or submit a PR to fix my crappy code :pray:
+* **Why can't I play anything?** Check you have a device selected (d) and make sure you're using a paid Spotify account
+* **I get an error page when I log into Spotify** This is correct - just copy the URL and paste it back into the terminal
+* **Podcasts aren't playing** See: #13
 
 Dependencies
 -----------
