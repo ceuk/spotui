@@ -1,7 +1,7 @@
 import sys
 import time
 import curses
-from threading import Thread
+from threading import Thread, Lock
 from spotui.src.util import debounce
 from spotui.src.Logging import logging
 from spotui.src.spotifyApi import SpotifyApi
@@ -13,7 +13,7 @@ from spotui.src.SearchInput import SearchInput
 from spotui.src.NowPlaying import NowPlaying
 
 starttime = time.time()
-
+lock = Lock()
 
 class MainForm:
     def __init__(self, stdscr):
@@ -113,10 +113,14 @@ class MainForm:
 
     def status_loop(self):
         while 1:
-            if not self.pause_updates:
+
+            if not self.pause_updates:                
                 self.status = self.api.get_playing()
                 self.components[0].refresh_now_playing(self.status)
-                self.render()
+
+            with lock:
+                if not self.pause_updates:
+                    self.render()
             time.sleep(1 - ((time.time() - starttime) % 1))
 
     def render(self):
