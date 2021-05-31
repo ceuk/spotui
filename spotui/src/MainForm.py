@@ -26,6 +26,9 @@ class MainForm:
 
         self.app_name = "SpoTUI"
 
+        # set default background color
+        stdscr.bkgd(curses.color_pair(1))
+
         # Events
         self.events = {
             155: self.handle_exit,

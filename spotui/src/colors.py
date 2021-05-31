@@ -8,7 +8,7 @@ def init_colors():
     config = get_config() # symbol use
     use_default_bg = config.get("colors", "use_default_background") == "yes"
     use_256_colors = config.get("colors", "use_256_colors") == "yes"
-    is_default_bg_transparent = config.get("colors", "is_default_bg_transparent") == "yes"
+    transp = config.get("colors", "override_bg_with_transparent") == "yes"
 
     if use_default_bg:
         curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
@@ -21,22 +21,22 @@ def init_colors():
     #     # set up individual colors. run get_all_colors.py to see them all
 
         df_fg = int(config.get("custom_colors_256", "default_text_fg"))
-        df_bg = int(config.get("custom_colors_256", "default_text_bg"))
+        df_bg = int(config.get("custom_colors_256", "default_text_bg")) if not transp else -1
   
         ib_fg = int(config.get("custom_colors_256", "inactive_border_fg"))
-        ib_bg = int(config.get("custom_colors_256", "inactive_border_bg"))
+        ib_bg = int(config.get("custom_colors_256", "inactive_border_bg")) if not transp else -1
   
         ab_fg = int(config.get("custom_colors_256", "active_border_fg"))
-        ab_bg = int(config.get("custom_colors_256", "active_border_bg"))
+        ab_bg = int(config.get("custom_colors_256", "active_border_bg")) if not transp else -1
   
         pb_fg = int(config.get("custom_colors_256", "popup_border_fg"))
-        pb_bg = int(config.get("custom_colors_256", "popup_border_bg"))
+        pb_bg = int(config.get("custom_colors_256", "popup_border_bg")) if not transp else -1
   
         sb_fg = int(config.get("custom_colors_256", "seekbar_fg"))
-        sb_bg = int(config.get("custom_colors_256", "seekbar_bg"))
+        sb_bg = int(config.get("custom_colors_256", "seekbar_bg")) if not transp else -1
   
         lp_fg = int(config.get("custom_colors_256", "list_now_playing_fg"))
-        lp_bg = int(config.get("custom_colors_256", "list_now_playing_bg"))
+        lp_bg = int(config.get("custom_colors_256", "list_now_playing_bg")) if not transp else -1
   
         cs_fg = int(config.get("custom_colors_256", "cursor_fg"))
         cs_bg = int(config.get("custom_colors_256", "cursor_bg"))
@@ -45,8 +45,6 @@ def init_colors():
         cp_bg = int(config.get("custom_colors_256", "cursor_now_playing_bg"))
 
         ### set up pairs
-
-        #TODO: this does not work
         # Default text
         curses.init_pair(1, df_fg, df_bg)
         

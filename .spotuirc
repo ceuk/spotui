@@ -9,10 +9,6 @@ redirect_uri = http://localhost:8888/auth
 use_nerd_fonts = yes
 config_version = 1
 
-[colors]
-use_256_colors = no
-use_default_background = no
-is_default_bg_transparent = no
 
 
 
@@ -21,37 +17,51 @@ is_default_bg_transparent = no
 ; DO NOT TURN ON UNLESS YOU KNOW WHAT YOU ARE DOING
 
 
+
+
+[colors]
+use_256_colors = no
+use_default_background = no
+is_default_bg_transparent = no
+override_bg_with_transparent = no
+
+
 ; for color values, see: 
 ; https://en.wikipedia.org/wiki/File:Xterm_256color_chart.svg
-;
+
 ; transparency will only work if use_default_background is 
-; turned on above. for transparency, use -1 as the color value.
+; turned on above and your terminal supports it. 
+; for transparency, use -1 as the color value.
 
 [custom_colors_256]
 
-default_text_fg = 253
-default_text_bg = 233
+default_text_fg = 248
+default_text_bg = 234
 
 inactive_border_fg = 253
-inactive_border_bg = 233
+inactive_border_bg = 234
 
 active_border_fg = 214
-active_border_bg = 233
+active_border_bg = 234
 
 popup_border_fg = 203
-popup_border_bg = 233
+popup_border_bg = 234
 
 seekbar_fg = 35
-seekbar_bg = 233 
+seekbar_bg = 234 
 
 list_now_playing_fg = 63
-list_now_playing_bg = 233
+list_now_playing_bg = 234
 
-cursor_fg = 233
+cursor_fg = 234
 cursor_bg = 253
 
-cursor_now_playing_fg = 233
+cursor_now_playing_fg = 234
 cursor_now_playing_bg = 63
+
+;to be implemented
+active_border_list_fg = 253
+active_border_list_bg = 234
 
 
 [custom_colors_default]

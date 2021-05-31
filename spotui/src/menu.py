@@ -53,7 +53,8 @@ class Menu:
                 elif selected:
                     color = 6 # color use
                 else:
-                    color = 1 # color use
+                    pass
+                    # default to color = 1 # color use
                 self.__printString(y, x, item["text"], color)
 
     def receive_input(self, key):
