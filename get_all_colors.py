@@ -13,7 +13,7 @@ def main(stdscr):
 
     # try:
     for i2 in range(0, 255):
-        pad = "{:>3}".format(str(i2))
+        pad = "{:>3}".format(str(i2 - 1))
         stdscr.addstr(pad, curses.color_pair(i2))
         stdscr.addstr( "  ")
 

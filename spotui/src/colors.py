@@ -16,17 +16,17 @@ def init_colors():
     if use_256_colors and curses.tigetnum("colors") == 256:
         
     #     # set up individual colors. run get_all_colors.py to see them all
-        purple      = 64
-        cyan        = 40
-        green       = 47
-        yellow      = 215
-        orange      = 203
-        magenta     = 197
-        gray_light  = 250
-        gray_dark   = 238
-        light       = 254
-        dark        = 234
-        transparent = 0
+        purple      = 63
+        cyan        = 39
+        green       = 35
+        yellow      = 214
+        orange      = 202
+        magenta     = 196
+        gray_light  = 249
+        gray_dark   = 237
+        light       = 253
+        dark        = 233
+        transparent = -1
 
 
         # set up pairs
@@ -38,10 +38,10 @@ def init_colors():
         curses.init_pair(5, yellow, dark)
         # Magenta text - background to popup components, overrides above
         curses.init_pair(10, magenta, dark)
-        # Green text - no use that I can see
+        # Green text - now playing seekbar
         curses.init_pair(11, green, dark)
         # Cyan text - currently playing song, in lists
-        curses.init_pair(12, cyan, dark)
+        curses.init_pair(12, purple, dark)
         # Selected item - cursor line highlight
         curses.init_pair(6, dark, light)
         # Highlighted (no bg) - no use that I can see
