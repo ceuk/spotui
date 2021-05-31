@@ -12,7 +12,7 @@ class PlaylistMenu(Component):
         self.title = "Playlists"
         self.interactive = True
         self.items = self.api.get_playlists()
-        self.restart()
+        self.restart() #BUG: why does it restart itself after init?
 
     def restart(self):
         self.items = self.api.get_playlists()
