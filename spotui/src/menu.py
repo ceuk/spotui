@@ -43,16 +43,17 @@ class Menu:
             x = self.startx
             y = self.starty + i
             selected = itemIndex == self.selected and self.active
+            highlighted = "highlight" in item and item["highlight"]
             if y >= 0 and y <= scry and x >= 0 and x <= scrx:
                 color = None
-                if "highlight" in item and item["highlight"]:
+                if selected and highlighted:
+                    color = 7 # color use
+                elif highlighted:
                     color = 12 # color use
                 elif selected:
                     color = 6 # color use
-                elif selected and "highlight" in item and item["highlight"]:
-                    color = 7
                 else:
-                    color = 1
+                    color = 1 # color use
                 self.__printString(y, x, item["text"], color)
 
     def receive_input(self, key):
