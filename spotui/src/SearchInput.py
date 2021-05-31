@@ -5,10 +5,11 @@ from spotui.src.component import Component
 
 
 class SearchInput(Component):
-    def __init__(self, stdscr, api, handle_search):
+    def __init__(self, stdscr, api, handle_search, close):
         self.stdscr = stdscr
         self.api = api
         self.handle_search = handle_search
+        self.close = close
         self.active = True
         self.popup = True
         self.title = "Search"
@@ -31,6 +32,8 @@ class SearchInput(Component):
             self.endx,
             self.handle_search,
         )
+
+    #TODO: esc to close has to be caught here in this file
 
     def activate(self):
         self.component.active = True

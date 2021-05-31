@@ -58,7 +58,7 @@ class MainForm:
             NowPlaying(stdscr),
         ]
         self.search_component = SearchInput(self.stdscr, self.api,
-                                            self.search)
+                                            self.search, self.hide_popup)
         self.device_menu_component = DeviceMenu(self.stdscr, self.api,
                                                 self.select_device,
                                                 self.hide_popup)
