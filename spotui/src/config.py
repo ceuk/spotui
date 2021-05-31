@@ -1,5 +1,5 @@
 import os, configparser, errno
-
+from shutil import copy2
 
 def get_config():
     user_config_dir = os.path.expanduser("~")
@@ -13,9 +13,12 @@ def get_config():
             if exc.errno != errno.EEXIST:
                 raise
 
-    # if config file doesn't exist
+    # if config file doesn't exist, create one and stop
     if not os.path.isfile(filename):
         _create_default_config(config, filename)
+        print("[ SpoTUI ] " + filename +" has been created!")
+        print("[ SpoTUI ] " + " Open it to set up your account")
+        exit(1)
 
     config.read(filename)
 
@@ -26,31 +29,18 @@ def get_config():
 
 
 def _create_default_config(configparser, filename):
-    configparser.add_section("spotify_api")
-    configparser.set("spotify_api", "user_name", "*your spotify username*")
-    configparser.set(
-        "spotify_api",
-        "; register an application here: https://developer.spotify.com/dashboard/login",
-    )
-    configparser.set("spotify_api", "client_id", "*your application ID*")
-    configparser.set("spotify_api", "client_secret",
-                     "*your application secret*")
-    configparser.set("spotify_api", "redirect_uri",
-                     "http://localhost:8888/auth")
-
-    configparser.add_section("other")
-    configparser.set("other", "use_nerd_fonts", "yes")
-    configparser.set("other", "config_version", "1")
-
-    configparser.write(open(filename, "w"))
+    user_config_dir = os.path.expanduser("~")
+    copy2(".spotuirc",  user_config_dir + "/.config/spotui/")
 
 
 def _check_config(configparser, filename):
     user_name = configparser.get("spotify_api", "user_name")
     client_id = configparser.get("spotify_api", "client_id")
     client_secret = configparser.get("spotify_api", "client_secret")
+    
+    # file exists, hasn't been changec
     if (client_id == "*your application ID*"
             or client_secret == "*your application secret*"
             or user_name == "*your spotify username*"):
-        print("You need to configure: " + filename)
+        print("[ SpoTUI ] " + filename +" needs to be edited with appropriate values")
         exit(1)

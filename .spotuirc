@@ -1,0 +1,99 @@
+[spotify_api]
+user_name = *your spotify username*
+; register an application here: https://developer.spotify.com/dashboard/login
+client_id = *client id*
+client_secret = *client secret*
+redirect_uri = http://localhost:8888/auth
+
+[other]
+use_nerd_fonts = yes
+config_version = 1
+
+[colors]
+use_256_colors = no
+use_default_background = no
+is_default_bg_transparent = no
+
+
+
+; »»»   HERE BE DRAGONS   «««
+
+; DO NOT TURN ON UNLESS YOU KNOW WHAT YOU ARE DOING
+
+
+; for color values, see: 
+; https://en.wikipedia.org/wiki/File:Xterm_256color_chart.svg
+;
+; transparency will only work if use_default_background is 
+; turned on above. for transparency, use -1 as the color value.
+
+[custom_colors_256]
+
+default_text_fg = 253
+default_text_bg = 233
+
+inactive_border_fg = 253
+inactive_border_bg = 233
+
+active_border_fg = 214
+active_border_bg = 233
+
+popup_border_fg = 203
+popup_border_bg = 233
+
+seekbar_fg = 35
+seekbar_bg = 233 
+
+list_now_playing_fg = 63
+list_now_playing_bg = 233
+
+cursor_fg = 233
+cursor_bg = 253
+
+cursor_now_playing_fg = 233
+cursor_now_playing_bg = 63
+
+
+[custom_colors_default]
+; to be implemented
+
+
+;┌──────────────────────
+;│ default color theme
+;└──────────────────────
+;
+; purple      = 63
+; cyan        = 39
+; green       = 35
+; yellow      = 214
+; orange      = 166
+; magenta     = 203
+; gray_light  = 249
+; gray_dark   = 237
+; light       = 253
+; dark        = 233
+; transparent = -1
+
+
+
+
+;┌──────────────────────
+;│ default colors 256
+;└──────────────────────
+;
+; default_text_fg = 253
+; default_text_bg = 233
+; inactive_border_fg = 253
+; inactive_border_bg = 233
+; active_border_fg = 214
+; active_border_bg = 233
+; popup_border_fg = 203
+; popup_border_bg = 233
+; seekbar_fg = 35
+; seekbar_bg = 233 
+; list_now_playing_fg = 63
+; list_now_playing_bg = 233
+; cursor_fg = 233
+; cursor_bg = 253
+; cursor_now_playing_fg = 233
+; cursor_now_playing_bg = 63
