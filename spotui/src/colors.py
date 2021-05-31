@@ -12,7 +12,6 @@ def init_colors():
     if use_default_bg:
         curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
 
-
     curses.setupterm()
     if use_256_colors and curses.tigetnum("colors") == 256:
         
@@ -33,38 +32,38 @@ def init_colors():
         # set up pairs
         # Default text
         curses.init_pair(1, light, transparent)
-        # White text
+        # White text - background to inactive component border
         curses.init_pair(4, light, dark)
-        # Yellow text
+        # Yellow text - background to active component border
         curses.init_pair(5, yellow, dark)
-        # Magenta text
+        # Magenta text - background to popup components, overrides above
         curses.init_pair(10, magenta, dark)
-        # Green text
+        # Green text - no use that I can see
         curses.init_pair(11, green, dark)
-        # Cyan text
+        # Cyan text - currently playing song, in lists
         curses.init_pair(12, cyan, dark)
-        # Selected item
+        # Selected item - cursor line highlight
         curses.init_pair(6, dark, light)
-        # Highlighted (no bg)
+        # Highlighted (no bg) - no use that I can see
         curses.init_pair(7, magenta, dark)
-        # Highlighted (bg)
+        # Highlighted (bg) - no use that I can see
         curses.init_pair(8, light, magenta)
     
     else:
         curses.init_pair(1, curses.COLOR_WHITE, 0)
-        # White text
+        # White text - background to inactive component border
         curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_BLACK)
-        # Yellow text
+        # Yellow text - background to active component border
         curses.init_pair(5, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-        # Magenta text
+        # Magenta text - background to popup components, overrides above
         curses.init_pair(10, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-        # Green text
+        # Green text - no use that I can see
         curses.init_pair(11, curses.COLOR_GREEN, curses.COLOR_BLACK)
-        # Cyan text
+        # Cyan text - currently playing song, in lists
         curses.init_pair(12, curses.COLOR_CYAN, curses.COLOR_BLACK)
-        # Selected item
+        # Selected item - cursor line highlight
         curses.init_pair(6, curses.COLOR_BLACK, curses.COLOR_WHITE)
-        # Highlighted (no bg)
+        # Highlighted (no bg) - no use that I can see
         curses.init_pair(7, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-        # Highlighted (bg)
+        # Highlighted (bg) - no use that I can see
         curses.init_pair(8, curses.COLOR_WHITE, curses.COLOR_MAGENTA)
