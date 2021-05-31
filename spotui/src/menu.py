@@ -13,6 +13,7 @@ class Menu:
         active=False,
         selected=0,
         scroll_start=0,
+        color_pair=1
     ):
         self.stdscr = stdscr
         self.starty = starty + 2
@@ -46,8 +47,12 @@ class Menu:
                 color = None
                 if "highlight" in item and item["highlight"]:
                     color = 12 # color use
-                if selected:
+                elif selected:
                     color = 6 # color use
+                elif selected and "highlight" in item and item["highlight"]:
+                    color = 7
+                else:
+                    color = 1
                 self.__printString(y, x, item["text"], color)
 
     def receive_input(self, key):

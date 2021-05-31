@@ -41,11 +41,12 @@ def init_colors():
         cs_fg = int(config.get("custom_colors_256", "cursor_fg"))
         cs_bg = int(config.get("custom_colors_256", "cursor_bg"))
     
-        #TODO: add this functionality
         cp_fg = int(config.get("custom_colors_256", "cursor_now_playing_fg"))
         cp_bg = int(config.get("custom_colors_256", "cursor_now_playing_bg"))
 
         ### set up pairs
+
+        #TODO: this does not work
         # Default text
         curses.init_pair(1, df_fg, df_bg)
         
@@ -67,7 +68,7 @@ def init_colors():
         # cursor line highlight
         curses.init_pair(6, cs_fg, cs_bg)
 
-        # cursor line highlight, list item selected, not implemented
+        # cursor line highlight, list item selected
         curses.init_pair(7, cp_fg, cp_bg)
 
         # Highlighted (bg) - no use that I can see
