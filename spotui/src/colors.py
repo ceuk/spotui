@@ -20,8 +20,8 @@ def init_colors():
         cyan        = 39
         green       = 35
         yellow      = 214
-        orange      = 202
-        magenta     = 196
+        orange      = 166
+        magenta     = 203
         gray_light  = 249
         gray_dark   = 237
         light       = 253
