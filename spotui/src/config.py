@@ -43,7 +43,8 @@ def _check_config(configparser, filename):
 
         nerd_fonts = configparser.get("other", "use_nerd_fonts")
 
-        #copy new file over    
+        #copy new file over   
+        # TODO: does not copy over comments within the file?? those are necessary 
         copy2(".spotuirc",  filename)
         configparser.read(filename)
 
