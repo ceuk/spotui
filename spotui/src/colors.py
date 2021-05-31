@@ -1,10 +1,17 @@
 import curses
+from spotui.src.config import get_config
 
 
 def init_colors():
-    curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
+
+
+    config = get_config() # symbol use
+    use_default_bg = config.get("colors", "use_default_background") == "yes"
+
+    if use_default_bg:
+        curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
     # Default text 1
-    curses.init_pair(1, 254, 235)
+    curses.init_pair(1, 254, 64)
     # White text 4
     #background to inactive component border
     curses.init_pair(4, 254, 234)

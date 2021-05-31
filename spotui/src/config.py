@@ -49,7 +49,6 @@ def _check_config(configparser, filename):
     user_name = configparser.get("spotify_api", "user_name")
     client_id = configparser.get("spotify_api", "client_id")
     client_secret = configparser.get("spotify_api", "client_secret")
-
     if (client_id == "*your application ID*"
             or client_secret == "*your application secret*"
             or user_name == "*your spotify username*"):
