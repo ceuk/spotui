@@ -45,9 +45,9 @@ class Menu:
             if y >= 0 and y <= scry and x >= 0 and x <= scrx:
                 color = None
                 if "highlight" in item and item["highlight"]:
-                    color = 12
+                    color = 12 # color use
                 if selected:
-                    color = 6
+                    color = 6 # color use
                 self.__printString(y, x, item["text"], color)
 
     def receive_input(self, key):

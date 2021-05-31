@@ -27,25 +27,25 @@ class Component:
 
         # vertical borders
         for i in range(self.starty + 1, self.endy):
-            self.stdscr.addstr(i, self.startx, "│")
-            self.stdscr.addstr(i, self.endx, "│")
+            self.stdscr.addstr(i, self.startx, "│") # symbol use
+            self.stdscr.addstr(i, self.endx, "│") # symbol use
 
         # horizontal borders
         for i in range(self.startx + 1, self.endx):
-            self.stdscr.addstr(self.starty, i, "─")
-            self.stdscr.addstr(self.endy, i, "─")
+            self.stdscr.addstr(self.starty, i, "─") # symbol use
+            self.stdscr.addstr(self.endy, i, "─") # symbol use
 
         # top left corner
-        self.stdscr.addstr(self.starty, self.startx, "╭")
+        self.stdscr.addstr(self.starty, self.startx, "╭") # symbol use
 
         # top right corner
-        self.stdscr.addstr(self.starty, self.endx, "╮")
+        self.stdscr.addstr(self.starty, self.endx, "╮") # symbol use
 
         # bottom left corner
-        self.stdscr.addstr(self.endy, self.startx, "╰")
+        self.stdscr.addstr(self.endy, self.startx, "╰") # symbol use
 
         # bottom right corner
-        self.stdscr.addstr(self.endy, self.endx, "╯")
+        self.stdscr.addstr(self.endy, self.endx, "╯") # symbol use
 
         # title
         if self.title:
@@ -59,9 +59,9 @@ class Component:
             for x in range(self.startx, self.endx + 1):
                 for y in range(self.starty, self.endy + 1):
                     self.stdscr.addstr(y, x, " ")
-            self.create_border(10)
+            self.create_border(10) # color use
         elif self.interactive:
-            self.create_border(5 if self.component.active else 4)
+            self.create_border(5 if self.component.active else 4) # color use
         self.component.render(status)
 
     def receive_input(self, key):

@@ -4,7 +4,7 @@ from spotui.src.menu import Menu
 from spotui.src.component import Component
 from spotui.src.config import get_config
 
-config = get_config()
+config = get_config() # symbol use
 use_nerd_fonts = config.get("other", "use_nerd_fonts") == "yes"
 play_icon = "契" if use_nerd_fonts else "▶"
 pause_icon = " " if use_nerd_fonts else "⏸ "
@@ -97,13 +97,13 @@ class NowPlayingComponent:
                 0,
                 round(self.endx - self.startx - 4 - self.progress_percent) +
                 1):
-            self.stdscr.addstr(self.endy, self.endx - 2 - i, "░")
-        self.stdscr.attron(curses.color_pair(11))
-        self.stdscr.addstr(self.endy, self.startx + 1, "")
+            self.stdscr.addstr(self.endy, self.endx - 2 - i, "░") # symbol use
+        self.stdscr.attron(curses.color_pair(11)) # color use
+        self.stdscr.addstr(self.endy, self.startx + 1, "") # symbol use
         for i in range(0, progress_length + 1):
-            self.stdscr.addstr(self.endy, self.startx + 2 + i, "█")
-        if self.progress_percent > 99.4:
-            self.stdscr.addstr(self.endy, self.endx - 1, "")
-        self.stdscr.attroff(curses.color_pair(11))
+            self.stdscr.addstr(self.endy, self.startx + 2 + i, "█") # symbol use
+        if self.progress_percent > 99.4: #TODO: these endcaps don't make any sense and look weird like this
+            self.stdscr.addstr(self.endy, self.endx - 1, "") # symbol use
+        self.stdscr.attroff(curses.color_pair(11)) # color use
         if self.progress_percent < 99.5:
-            self.stdscr.addstr(self.endy, self.endx - 1, "")
+            self.stdscr.addstr(self.endy, self.endx - 1, "") # symbol use

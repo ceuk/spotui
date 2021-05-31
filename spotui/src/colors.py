@@ -2,23 +2,31 @@ import curses
 
 
 def init_colors():
-    # Default text
-    curses.init_pair(1, curses.COLOR_WHITE, 0)
-    # White text
+    # Default text 1
+    curses.init_pair(1, 254, 235)
+    # White text 4
+    #background to inactive component border
     curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_BLACK)
-    # Yellow text
+    # Yellow text 5
+    #background to active component border
     curses.init_pair(5, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     # Magenta text
+    #background to popup components, overrides above
     curses.init_pair(10, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-    # Green text
+    # Green text    
+    #no use that I can see
     curses.init_pair(11, curses.COLOR_GREEN, curses.COLOR_BLACK)
     # Cyan text
+    #currently playing song, in lists
     curses.init_pair(12, curses.COLOR_CYAN, curses.COLOR_BLACK)
     # Selected item
+    #cursor line highlight
     curses.init_pair(6, curses.COLOR_BLACK, curses.COLOR_WHITE)
     # Highlighted (no bg)
-    curses.init_pair(7, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+    #no use that I can see
+    curses.init_pair(7, curses.COLOR_MAGENTA, curses.COLOR_GREEN)
     # Highlighted (bg)
+    #no use that I can see
     curses.init_pair(8, curses.COLOR_WHITE, curses.COLOR_MAGENTA)
 
     ## testing xterm-256

@@ -41,7 +41,8 @@ class Input:
 
     def receive_input(self, key):
         pass
-
+    
+    #TODO: escape also as terminate
     def __enter_is_terminate(self, x):
         if x == 10 or x == 13 or x == curses.KEY_ENTER:
             self.stdscr.clear()
