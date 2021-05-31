@@ -6,12 +6,10 @@ def init_colors():
 
 
     config = get_config() # symbol use
-    use_default_bg = config.get("colors", "use_default_background") == "yes"
     use_256_colors = config.get("colors", "use_256_colors") == "yes"
     transp = config.get("colors", "override_bg_with_transparent") == "yes"
 
-    if use_default_bg:
-        curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
+    curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
 
     curses.setupterm()
 

@@ -21,8 +21,11 @@ config_version = 1
 
 [colors]
 use_256_colors = no
-use_default_background = no
+
+; enables transparency
 is_default_bg_transparent = no
+
+; replaces all default dark gray backgrounds with default terminal bg
 override_bg_with_transparent = no
 
 
