@@ -2,32 +2,33 @@ import curses
 
 
 def init_colors():
+    curses.use_default_colors() # from: https://linux.die.net/man/3/use_default_colors
     # Default text 1
     curses.init_pair(1, 254, 235)
     # White text 4
     #background to inactive component border
-    curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(4, 254, 234)
     # Yellow text 5
     #background to active component border
-    curses.init_pair(5, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    curses.init_pair(5, 215, 234)
     # Magenta text
     #background to popup components, overrides above
-    curses.init_pair(10, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+    curses.init_pair(10, 197, 234)
     # Green text    
     #no use that I can see
-    curses.init_pair(11, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(11, 47, 234)
     # Cyan text
     #currently playing song, in lists
-    curses.init_pair(12, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(12, 40, 234)
     # Selected item
     #cursor line highlight
-    curses.init_pair(6, curses.COLOR_BLACK, curses.COLOR_WHITE)
+    curses.init_pair(6, 234, 254)
     # Highlighted (no bg)
     #no use that I can see
-    curses.init_pair(7, curses.COLOR_MAGENTA, curses.COLOR_GREEN)
+    curses.init_pair(7, 197, 47)
     # Highlighted (bg)
     #no use that I can see
-    curses.init_pair(8, curses.COLOR_WHITE, curses.COLOR_MAGENTA)
+    curses.init_pair(8, 254, 197)
 
     ## testing xterm-256
 
