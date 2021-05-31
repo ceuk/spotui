@@ -93,6 +93,15 @@ class NowPlayingComponent:
         self.stdscr.addstr(self.starty, self.endx - len(timestamp), timestamp)
 
         # Progress bar
+        #TODO: replace bar with better seek mechanic, using 7 steps:
+        # ▏▎▍▌▋▊▉
+        # as full bar, and " " with a bg as a color pair, instead of ░ for empty
+        # another option is to use bg + 2 steps:
+        # ⠆⠶
+        # ⡇⡷
+        # ⡇⣿
+        # ⡁⣉
+        
         for i in range(
                 0,
                 round(self.endx - self.startx - 4 - self.progress_percent) +

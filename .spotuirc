@@ -7,7 +7,7 @@ redirect_uri = http://localhost:8888/auth
 
 [other]
 use_nerd_fonts = yes
-config_version = 1
+config_version = 2
 
 
 
@@ -22,19 +22,35 @@ config_version = 1
 [colors]
 use_256_colors = no
 
-; enables transparency
+; enables transparency in variables
 is_default_bg_transparent = no
 
 ; replaces all default dark gray backgrounds with default terminal bg
 override_bg_with_transparent = no
 
 
-; for color values, see: 
+
+
+
+
+
+; for x256 color values, see: 
 ; https://en.wikipedia.org/wiki/File:Xterm_256color_chart.svg
+; or run get_all_colors.py from within source folder
 
 ; transparency will only work if use_default_background is 
 ; turned on above and your terminal supports it. 
 ; for transparency, use -1 as the color value.
+
+; available curses colors:
+;   black
+;   red
+;   green
+;   yellow
+;   blue
+;   magenta
+;   cyan
+;   white
 
 [custom_colors_256]
 
@@ -67,27 +83,30 @@ active_border_list_fg = 253
 active_border_list_bg = 234
 
 
-[custom_colors_default]
 ; to be implemented
+[custom_colors_curses]
+default_text_fg = white
+default_text_bg = black
+inactive_border_fg = white
+inactive_border_bg = black
+active_border_fg = yellow
+active_border_bg = black
+popup_border_fg = magenta
+popup_border_bg = black
+seekbar_fg = green
+seekbar_bg = black 
+list_now_playing_fg = cyan
+list_now_playing_bg = black
+cursor_fg = black
+cursor_bg = white
+cursor_now_playing_fg = black
+cursor_now_playing_bg = cyan
 
 
-;┌──────────────────────
-;│ default color theme
-;└──────────────────────
-;
-; purple      = 63
-; cyan        = 39
-; green       = 35
-; yellow      = 214
-; orange      = 166
-; magenta     = 203
-; gray_light  = 249
-; gray_dark   = 237
-; light       = 253
-; dark        = 233
-; transparent = -1
 
 
+; »»»   If you broke something, copypaste these values below into 
+; »»»   their appropriate spots above, and remove the ; comment symbols
 
 
 ;┌──────────────────────
@@ -110,3 +129,24 @@ active_border_list_bg = 234
 ; cursor_bg = 253
 ; cursor_now_playing_fg = 233
 ; cursor_now_playing_bg = 63
+
+;┌──────────────────────
+;│ default colors curses
+;└──────────────────────
+;
+; default_text_fg = white
+; default_text_bg = black
+; inactive_border_fg = white
+; inactive_border_bg = black
+; active_border_fg = yellow
+; active_border_bg = black
+; popup_border_fg = magenta
+; popup_border_bg = black
+; seekbar_fg = green
+; seekbar_bg = black 
+; list_now_playing_fg = cyan
+; list_now_playing_bg = black
+; cursor_fg = black
+; cursor_bg = white
+; cursor_now_playing_fg = black
+; cursor_now_playing_bg = cyan

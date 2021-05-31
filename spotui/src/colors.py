@@ -71,6 +71,9 @@ def init_colors():
         #curses.init_pair(8, light, magenta)
     
     else:
+        
+        #TODO: grab values from config instead of hardcoding below
+
         curses.init_pair(1, curses.COLOR_WHITE, 0)
         # White text - background to inactive component border
         curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_BLACK)
