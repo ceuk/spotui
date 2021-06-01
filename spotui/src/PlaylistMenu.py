@@ -41,7 +41,16 @@ class PlaylistMenu(Component):
 
     def __map_playlists(self, item):
         available_space = self.endx - self.startx - 6
-        item["text"] = truncate(item["text"], available_space)
+        
+        #injection of current playlist
+        status = self.api.get_playing()
+
+        if str(item["uri"]) == str(status["context"]["uri"]):
+            item["text"] = truncate(item["text"], available_space - 2)
+            item["text"] = "{0} ".format(item["text"])
+        else:
+            item["text"] = truncate(item["text"], available_space)
+        #end injection
 
         def handler():
             self.__select_playlist(item["text"], item["id"], item["uri"])
