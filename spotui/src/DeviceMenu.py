@@ -38,6 +38,16 @@ class DeviceMenu(Component):
 
     def __map_devices(self, item):
         available_space = self.endx - self.startx - 6
+        
+        #injection of current device
+        status = self.api.get_playing()
+        current_device_id = status["device"]["id"]
+        if str(item["id"]) == str(current_device_id):
+            item["text"] = "蓼 {0}".format(item["text"])
+        else:
+            item["text"] = "  {0}".format(item["text"])
+        #end injection
+
         item["text"] = truncate(item["text"], available_space)
 
         def handler():
