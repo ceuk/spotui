@@ -21,10 +21,8 @@ class PlaylistMenu(Component):
         self.endx = round(scrx / 4) - 2
         self.starty = 6
         self.endy = scry - 5
-        
         self.status = self.api.get_playing()
         self.current_playlist_uri = self.status["context"]["uri"]
-
         self.comprehension = [self.__map_playlists(item, self.current_playlist_uri) for item in self.items]
         self.component = Menu(
             self.stdscr,
