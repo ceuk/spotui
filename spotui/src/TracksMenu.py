@@ -49,6 +49,8 @@ class TracksMenu(Component):
         if currently_playing and currently_playing != self.currently_playing:
             self.currently_playing = currently_playing
             self.restart()
+            #TODO: update playlist sidebar here? against cache or something 
+            # so we don't have to keep pulling from API
 
     def receive_input(self, key):
         if ((key == curses.KEY_ENTER or key in [10, 13]) and self.items
