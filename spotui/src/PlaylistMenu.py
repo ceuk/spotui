@@ -21,9 +21,14 @@ class PlaylistMenu(Component):
         self.endx = round(scrx / 4) - 2
         self.starty = 6
         self.endy = scry - 5
+        
+        self.status = self.api.get_playing()
+        self.current_playlist_uri = self.status["context"]["uri"]
+
+        self.comprehension = [self.__map_playlists(item, self.current_playlist_uri) for item in self.items]
         self.component = Menu(
             self.stdscr,
-            list(map(self.__map_playlists, self.items)),
+            list(self.comprehension),
             self.starty,
             self.startx,
             self.endy,
@@ -39,20 +44,21 @@ class PlaylistMenu(Component):
         self.change_tracklist(self.api.get_playlist_tracks(playlist_id),
                               playlist_name, playlist_uri)
 
-    def __map_playlists(self, item):
+    def __map_playlists(self, item, current_playlist_uri):
         available_space = self.endx - self.startx - 3
         
+        item["text"] = truncate(item["text"], available_space)
+        
+
         #injection of current playlist
-        #TODO: do not check the API on every playlist load. 
         #TODO: update this list when a new playlist is playing
         #TODO: check context on new song and update panels as necessary
-        status = self.api.get_playing()
+        if str(item["uri"]) == current_playlist_uri:
+           
+            if len(item["text"]) < available_space:
+                item["text"] = str(item["text"]).ljust(available_space - 1)
 
-        if str(item["uri"]) == str(status["context"]["uri"]):
-            item["text"] = truncate(item["text"], available_space)
             item["text"] = "{0} ".format(item["text"])
-        else:
-            item["text"] = truncate(item["text"], available_space)
         #end injection
 
         def handler():
