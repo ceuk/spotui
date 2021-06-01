@@ -40,13 +40,16 @@ class PlaylistMenu(Component):
                               playlist_name, playlist_uri)
 
     def __map_playlists(self, item):
-        available_space = self.endx - self.startx - 6
+        available_space = self.endx - self.startx - 3
         
         #injection of current playlist
+        #TODO: do not check the API on every playlist load. 
+        #TODO: update this list when a new playlist is playing
+        #TODO: check context on new song and update panels as necessary
         status = self.api.get_playing()
 
         if str(item["uri"]) == str(status["context"]["uri"]):
-            item["text"] = truncate(item["text"], available_space - 2)
+            item["text"] = truncate(item["text"], available_space)
             item["text"] = "{0} ".format(item["text"])
         else:
             item["text"] = truncate(item["text"], available_space)
