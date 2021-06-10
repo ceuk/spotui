@@ -44,10 +44,10 @@ def _check_config(configparser, filename):
         nerd_fonts = configparser.get("other", "use_nerd_fonts")
 
         #copy new file over   
-        # TODO: does not copy over comments within the file?? those are necessary 
-        copy2(".spotuirc",  filename)
+        copy2("../.spotuirc",  filename)
         configparser.read(filename)
 
+        # TODO: erases comments within the file?? those are necessary 
         #dump old spotify values in
         configparser.set("spotify_api", "user_name", user_name)
         configparser.set("spotify_api", "client_id", client_id)

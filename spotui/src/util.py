@@ -2,8 +2,8 @@ import time
 
 
 def truncate(text, max_length):
-    return (text[:max_length - 2] + "…") if len(text) >= max_length else text
-
+    length = len(text.encode("utf-16-le")) // 2
+    return (text[:max_length - 2] + "…") if length >= max_length else text
 
 def ms_to_hms(ms):
     if not ms:
