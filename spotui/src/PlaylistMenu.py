@@ -22,7 +22,7 @@ class PlaylistMenu(Component):
         self.endy = scry - 5
         self.status = self.api.get_playing()
 
-        if self.status is None:
+        if type(self.status) is None:
             self.current_playlist_uri = "-"
         else:
             self.current_playlist_uri = self.status["context"]["uri"]
@@ -61,7 +61,11 @@ class PlaylistMenu(Component):
                 item["text"] = str(item["text"]).ljust(available_space - 1)
 
             item["text"] = "{0} ".format(item["text"])
+        else:
+            item["text"] = str(item["text"]).ljust(available_space)
         #end injection
+
+
 
         def handler():
             self.__select_playlist(item["text"], item["id"], item["uri"])
