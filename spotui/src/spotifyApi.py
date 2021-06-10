@@ -170,8 +170,22 @@ class SpotifyApi:
             self.auth()
             if not self.token:
                 return []
-            playlists = self.client.current_user_playlists()
-            return list(map(self.__map_playlists, playlists["items"]))
+
+            # this grabs playlists spotify is trying to get the user to listen to
+            # playlists = self.client.user_playlists('spotify')
+
+            playlists = []
+            offset = 0
+
+            while True:
+                get_playlists = self.client.current_user_playlists(offset=offset)["items"]
+                playlists.extend(get_playlists)
+                if len(get_playlists) < 50:
+                    break
+                offset += 50
+                
+
+            return list(map(self.__map_playlists, playlists))
         except Exception as e:
             return []
             pass
