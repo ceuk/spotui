@@ -3,7 +3,6 @@ from spotui.src.util import truncate
 from spotui.src.menu import Menu
 from spotui.src.component import Component
 
-
 class PlaylistMenu(Component):
     def __init__(self, stdscr, api, change_tracklist):
         self.stdscr = stdscr
@@ -22,7 +21,12 @@ class PlaylistMenu(Component):
         self.starty = 6
         self.endy = scry - 5
         self.status = self.api.get_playing()
-        self.current_playlist_uri = self.status["context"]["uri"]
+
+        if self.status is None:
+            self.current_playlist_uri = "-"
+        else:
+            self.current_playlist_uri = self.status["context"]["uri"]
+        
         self.comprehension = [self.__map_playlists(item, self.current_playlist_uri) for item in self.items]
         self.component = Menu(
             self.stdscr,
