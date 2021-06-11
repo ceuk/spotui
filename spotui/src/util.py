@@ -1,9 +1,48 @@
 import time
 
 
-def truncate(text, max_length):
-    length = len(text.encode("utf-16-le")) // 2
-    return (text[:max_length - 2] + "…") if length >= max_length else text
+
+def truncate(src, trunc_at, om = "…"): # https://gist.github.com/komasaru/b25cbdf754971f920dd2f5743e950c7d
+    ENC = "utf-8"
+    trunc_at = trunc_at
+    str_size, str_bytesize = len(src), len(src.encode(ENC))
+    om_size = (len(om.encode(ENC))- len(om)) // 2 + len(om)
+    if str_size == str_bytesize:
+        if str_size <= trunc_at:
+            return src
+        else:
+            return src[:(trunc_at - om_size)] + om +" "
+    if (str_bytesize - str_size) // 2 + str_size <= trunc_at:
+        return src
+    for i in range(str_size):
+        s = (len(src[:(i + 1)].encode(ENC)) - len(src[:(i + 1)])) // 2 + len(src[:(i + 1)])
+        if s < trunc_at - om_size:
+            continue
+        elif s == trunc_at - om_size:
+            return src[:(i + 1)] + om +" "
+        else:
+            return src[:i] + om +" "
+    return src
+
+def pad_str(text, pad_to, om = " "):
+    ENC = "utf-8"
+    bytesize = len(text.encode(ENC))
+
+    # if bytelength is >= than pad_to, return
+    if bytesize >= pad_to:
+        return text
+    
+    pad_len = (pad_to - bytesize) + len(text)
+
+    return text.ljust(pad_len, om)
+
+
+def truncate_old(text, max_length):
+    encoding = "utf-8"
+    if len(text) <= max_length:
+        return text
+    return text.encode(encoding)[:max_length - 2].decode(encoding, 'ignore') +"…"
+    # return (text[:max_length - 2] + "…") if len(text) >= max_length else text
 
 def ms_to_hms(ms):
     if not ms:
