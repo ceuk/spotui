@@ -1,5 +1,5 @@
 import curses
-from spotui.src.util import truncate
+from spotui.src.util import truncate, pad_str
 from spotui.src.menu import Menu
 from spotui.src.component import Component
 
@@ -84,9 +84,12 @@ class TracksMenu(Component):
             "highlight": highlight,
         }
 
+    #TODO: ljust does not account for bytes
     def __pad_track_text(self, text, max_word_length):
-        spaces_needed = max_word_length - len(text)
-        if spaces_needed > 0:
-            for i in range(0, spaces_needed + 1):
-                text += " "
-        return text
+        return pad_str(text, max_word_length)
+        # return str(text).ljust(max_word_length, " ")
+        # spaces_needed = max_word_length - len(text)
+        # if spaces_needed > 0:
+        #     for i in range(0, spaces_needed + 1):
+        #         text += " "
+        # return text

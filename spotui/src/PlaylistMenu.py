@@ -1,5 +1,5 @@
 import curses
-from spotui.src.util import truncate
+from spotui.src.util import truncate, pad_str
 from spotui.src.menu import Menu
 from spotui.src.component import Component
 
@@ -22,7 +22,7 @@ class PlaylistMenu(Component):
         self.endy = scry - 5
         self.status = self.api.get_playing()
 
-        if type(self.status) is None:
+        if self.status is None:
             self.current_playlist_uri = "-"
         else:
             self.current_playlist_uri = self.status["context"]["uri"]
@@ -57,12 +57,13 @@ class PlaylistMenu(Component):
         #TODO: check context on new song and update panels as necessary
         if str(item["uri"]) == current_playlist_uri:
            
-            if len(item["text"]) < available_space:
-                item["text"] = str(item["text"]).ljust(available_space - 1)
+            if len(item["text"].encode("utf-8")) < available_space:
+                item["text"] = pad_str(item["text"], available_space - 2)
 
             item["text"] = "{0} ".format(item["text"])
-        else:
-            item["text"] = str(item["text"]).ljust(available_space)
+        else:    
+            #TODO: ljust does not account for bytes
+            item["text"] = pad_str(item["text"], available_space)
         #end injection
 
 
