@@ -16,7 +16,7 @@ def get_config():
     # if config file doesn't exist, create one and stop
     if not os.path.isfile(filename):
 
-        copy2(".spotuirc",  filename)
+        copy2("../.spotuirc",  filename)
         print("[ SpoTUI ] " + filename +" has been created!")
         print("[ SpoTUI ] " + " Open it to set up your account")
         exit(1)
