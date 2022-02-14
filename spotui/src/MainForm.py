@@ -12,7 +12,6 @@ from spotui.src.DeviceMenu import DeviceMenu
 from spotui.src.SearchInput import SearchInput
 from spotui.src.NowPlaying import NowPlaying
 
-
 starttime = time.time()
 lock = Lock()
 
