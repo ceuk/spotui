@@ -12,6 +12,7 @@ from spotui.src.DeviceMenu import DeviceMenu
 from spotui.src.SearchInput import SearchInput
 from spotui.src.NowPlaying import NowPlaying
 
+
 starttime = time.time()
 lock = Lock()
 
@@ -23,18 +24,20 @@ class MainForm:
         self.device_id = None
         self.tracklist_uri = None
         self.status = self.api.get_playing()
+        self.active = True
 
         self.app_name = "SpoTUI"
 
         # Events
         self.events = {
             155: self.handle_exit,
-            27: self.handle_exit,
+            27: self.handle_esc,
             ord("q"): self.handle_exit,
             9: self.select_next_component,
             curses.KEY_RESIZE: self.handle_resize,
             ord("d"): self.show_device_menu,
             ord("/"): self.show_search_bar,
+            ord("i"): self.show_inner_search_bar,
             ord(" "): self.toggle_playback,
             ord("p"): self.previous_track,
             ord("n"): self.next_track,
@@ -54,8 +57,10 @@ class MainForm:
             PlaylistMenu(stdscr, self.api, self.change_tracklist),
             NowPlaying(stdscr),
         ]
-        self.search_component = SearchInput(self.stdscr, self.api,
+        self.search_component = SearchInput(self.stdscr, self.api, "Search",
                                             self.search)
+        self.inner_search_component = SearchInput(self.stdscr, self.api,
+                                                  "Inner Search", self.inner_search)
         self.device_menu_component = DeviceMenu(self.stdscr, self.api,
                                                 self.select_device,
                                                 self.hide_popup)
@@ -66,6 +71,13 @@ class MainForm:
 
         # Popups
         self.popup = None
+
+        # Searches
+        self.inside_search = False
+
+        # Stack
+        self.previous_tracklist = None
+        self.tracklist_stack = []
 
         # Set initial tracklist
         if self.status and 'context' in self.status and type(self.status["context"]) is dict and 'uri' in self.status["context"]:
@@ -91,7 +103,7 @@ class MainForm:
         status_loop.start()
 
         # Start the main event loop (used for responding to key presses and keeping the main process running)
-        while 1:
+        while self.active:
             try:
                 if not self.pause_updates:
                     # capture and handle key press
@@ -112,7 +124,7 @@ class MainForm:
                 sys.exit(0)
 
     def status_loop(self):
-        while 1:
+        while self.active:
 
             if not self.pause_updates:                
                 self.status = self.api.get_playing()
@@ -136,6 +148,8 @@ class MainForm:
     def change_tracklist(self, tracks, title, tracklist_uri=None):
         self.components[0].update_tracks(tracks, title)
         self.tracklist_uri = tracklist_uri
+        self.tracklist_stack.append(self.previous_tracklist)
+        self.previous_tracklist = {"tracks": tracks, "title": title, "tracklist_uri": tracklist_uri}
         self.activate_tracklist()
 
     def select_next_component(self):
@@ -230,7 +244,23 @@ class MainForm:
         query = query.strip()
         if query and len(query) > 1:
             results = self.api.search(query)
+            self.inside_search = True
             self.change_tracklist(results, "Searching: " + query)
+            self.render()
+
+    @debounce(1.5)
+    def inner_search(self, query):
+        self.hide_popup()
+        query = query.strip()
+        tracks = self.components[0].tracks
+
+        if query and len(query) > 1:
+            results = []
+            for track in tracks:
+                if query.upper() in track['name'].upper() or query.upper() in track['artist'].upper():
+                    results.append(track)
+            self.inside_search = True
+            self.change_tracklist(results, f'Searching: {query}')
             self.render()
 
     def activate_tracklist(self):
@@ -255,6 +285,16 @@ class MainForm:
         self.popup.activate()
         self.render()
 
+
+    def show_inner_search_bar(self):
+        if self.popup:
+            return
+        self.pause_updates = True
+        self.popup = self.inner_search_component
+        self.components[self.active_component].deactivate()
+        self.popup.activate()
+        self.render()
+
     def select_device(self, device_id):
         self.device_id = device_id
 
@@ -273,11 +313,17 @@ class MainForm:
             component.restart()
         self.stdscr.clear()
 
-    def handle_exit(self):
+    def handle_esc(self):
         if self.popup:
             self.hide_popup()
-        else:
-            sys.exit(0)
+        elif self.inside_search:
+            self.inside_search = False
+            self.change_tracklist(**self.tracklist_stack.pop())
+            self.previous_tracklist = None
+            self.render()
+
+    def handle_exit(self):
+        sys.exit(0)
 
     def __filter_tracklist(self, track):
         return track["type"] == 'track'

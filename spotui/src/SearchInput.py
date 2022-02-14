@@ -5,13 +5,13 @@ from spotui.src.component import Component
 
 
 class SearchInput(Component):
-    def __init__(self, stdscr, api, handle_search):
+    def __init__(self, stdscr, api, title, handle_search):
         self.stdscr = stdscr
         self.api = api
         self.handle_search = handle_search
         self.active = True
         self.popup = True
-        self.title = "Search"
+        self.title = title
         self.interactive = False
         self.restart()
 
