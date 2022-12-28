@@ -56,6 +56,8 @@ Controls
 
 `/` Search 
 
+`i` Inner Search 
+
 `d` Open device menu
 
 `Esc`/`q` Quit/Back
