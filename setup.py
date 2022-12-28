@@ -1,18 +1,24 @@
-import setuptools
+from setuptools import setup, find_packages
+from distutils.util import convert_path
+
+main_ns = {}
+ver_path = convert_path('spotui/version.py')
+with open(ver_path) as ver_file:
+    exec(ver_file.read(), main_ns)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="spotui",
-    version="0.1.18",
+    version=main_ns['__version__'],
     author="ceuk",
     description="Spotify TUI",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="spotify spotifytui",
     url="https://github.com/ceuk/spotui",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     license="MIT",
     classifiers=[
         "Programming Language :: Python :: 3",
