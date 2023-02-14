@@ -29,6 +29,6 @@ setup(
         "License :: OSI Approved :: MIT License",
     ],
     python_requires=">=3.4",
-    install_requires=["spotipy==2.7.1"],
+    install_requires=["spotipy==2.22.1"],
     entry_points={"console_scripts": ["spotui=spotui.__main__:main"]},
 )
